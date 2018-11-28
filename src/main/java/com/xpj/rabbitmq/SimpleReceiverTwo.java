@@ -14,7 +14,8 @@ public class SimpleReceiverTwo {
         Connection connection = RabbitConfig.getConnection();
         Channel channel = connection.createChannel();
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
-//        channel.basicQos(1);
+        channel.basicQos(1);
+        channel.queueBind(QUEUE_NAME, FanoutProduceOne.EXCHANGE_NAME, "");
         channel.basicConsume(QUEUE_NAME, new DefaultConsumer(channel) {
 
             @Override
@@ -26,7 +27,7 @@ public class SimpleReceiverTwo {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-//                channel.basicAck(envelope.getDeliveryTag(), false);
+                channel.basicAck(envelope.getDeliveryTag(), false);
             }
         });
 

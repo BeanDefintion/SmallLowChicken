@@ -6,6 +6,20 @@ import com.rabbitmq.client.Connection;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * 订阅 发布模式
+ * <p>
+ * 解读：
+ * 1、1个生产者，多个消费者
+ * 2、每一个消费者都有自己的一个队列
+ * 3、生产者没有将消息直接发送到队列，而是发送到了交换机
+ * 4、每个队列都要绑定到交换机
+ * 5、生产者发送的消息，经过交换机，到达队列，实现，一个消息被多个消费者获取的目的
+ * 注意：一个消费者队列可以有多个消费者实例，只有其中一个消费者实例会消费
+ * <p>
+ * 所以对于队列而言 只要绑定到了交换机上 都可以得到消息
+ * 但对于队列里面的消费者而言 只有1个消费者可以得到消息
+ */
 public class FanoutProduceOne {
 
     public static final String EXCHANGE_NAME = "test_exchange_fanout";
