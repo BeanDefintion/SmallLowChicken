@@ -3,13 +3,13 @@ package com.xpj.rabbitmq;
 import com.rabbitmq.client.*;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public class SendOne {
-
+public class ProdeceOne {
     private static final String QUEUE_NAME = "xpj_test_01";
+
+    private static final String QUEUE_NAME1 = "xpj_test_02";
 
     public static void main(String[] args) throws IOException, TimeoutException, InterruptedException {
 
@@ -17,6 +17,8 @@ public class SendOne {
         Channel channel = connection.createChannel();
 
         /**
+         * 声明 创建队列
+         *
          * queue: 队列名称
          * durable： 是否持久化, 队列的声明默认是存放到内存中的，如果rabbitmq重启会丢失，如果想重启之后还存在就要使队列持久化，保存到Erlang自带的Mnesia数据库中，当rabbitmq重启之后会读取该数据库
          * exclusive：是否排外的，有两个作用，一：当连接关闭时connection.close()该队列是否会自动删除；二：该队列是否是私有的private，如果不是排外的，可以使用两个消费者都访问同一个队列，没有任何问题，如果是排外的，会对当前队列加锁，其他通道channel是不能访问的，如果强制访问会报异常：com.rabbitmq.client.ShutdownSignalException: channel error; protocol method: #method<channel.close>(reply-code=405, reply-text=RESOURCE_LOCKED - cannot obtain exclusive access to locked queue 'queue_name' in vhost '/', class-id=50, method-id=20)一般等于true的话用于一个队列只能有一个消费者来消费的场景
@@ -37,6 +39,7 @@ public class SendOne {
         channel.queueDeclare(QUEUE_NAME, false, false, false, null);
 
         /**
+         * 发送消息
          * var1:交换机名称
          * var2:队列名称
          * var3: AMQP.BasicProperties 提供了一个构造器，可以通过builder() 来设置一些属性；
@@ -44,36 +47,11 @@ public class SendOne {
          *          * properties.deliveryMode(2);  // 设置消息是否持久化，1： 非持久化 2：持久化
          * var4:消息
          */
-        channel.basicPublish("", QUEUE_NAME, null, "你是狗吗?".getBytes());
-        channel.basicConsume(QUEUE_NAME, new DefaultConsumer(channel) {
+        for (int i = 0; i < 100; i++) {
+            channel.basicPublish("", QUEUE_NAME, null, ("你是狗吗? " + i).getBytes());
+//            Thread.sleep(i * 10);
+        }
 
-            /**
-             *
-             * @param consumerTag Delivery Tag 用来标识信道中投递的消息 可见，两个信道的 delivery tag 分别从 1 递增到 5。
-             *                    （如果修改代码，将两个 Consumer 共享同一个信道，则 delivery tag 是从 1 递增到 10
-             * @param envelope 信道
-             * @param properties
-             * @param body 收到的byte数组
-             * @throws IOException
-             */
-            @Override
-            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                String message = new String(body, "UTF-8");
-                System.out.printf("in consumer A (delivery tag is %d): %s\n", envelope.getDeliveryTag(), message);
-                try {
-                    TimeUnit.MILLISECONDS.sleep(200);
-                } catch (InterruptedException e) {
-                }
-                /**
-                 * basicAck 方法的第二个参数 是否是批量确认
-                 * multiple 取值为 false 时，表示通知 RabbitMQ 当前消息被确认；如果为 true，则额外将比第一个参数指定的 delivery tag 小的消息一并确认
-                 *
-                 */
-                channel.basicAck(envelope.getDeliveryTag(), false);
-            }
-        });
-
-        TimeUnit.MILLISECONDS.sleep(2000);
         channel.close();
         connection.close();
     }
