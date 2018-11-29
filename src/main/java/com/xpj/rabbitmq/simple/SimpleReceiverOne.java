@@ -1,9 +1,9 @@
-package com.xpj.rabbitmq;
+package com.xpj.rabbitmq.simple;
 
 import com.rabbitmq.client.*;
+import com.xpj.rabbitmq.config.RabbitConfig;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 

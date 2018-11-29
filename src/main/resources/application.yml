@@ -1,0 +1,6 @@
+spring:
+  rabbitmq:
+    listener:
+      simple:
+        prefetch: 1
+    publisher-confirms: true

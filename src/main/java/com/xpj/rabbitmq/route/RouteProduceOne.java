@@ -1,7 +1,8 @@
-package com.xpj.rabbitmq;
+package com.xpj.rabbitmq.route;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
+import com.xpj.rabbitmq.config.RabbitConfig;
 
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
