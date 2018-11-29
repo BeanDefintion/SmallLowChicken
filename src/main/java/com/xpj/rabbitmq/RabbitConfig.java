@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Configuration;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+/**
+ * RabbitMQ的基本配置
+ */
 @Configuration
 public class RabbitConfig {
 
@@ -37,6 +40,13 @@ public class RabbitConfig {
     }
 
 
+    /**
+     * 获取一个RabbitMQ的Connection实例
+     *
+     * @return
+     * @throws IOException
+     * @throws TimeoutException
+     */
     public static Connection getConnection() throws IOException, TimeoutException {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost(host);

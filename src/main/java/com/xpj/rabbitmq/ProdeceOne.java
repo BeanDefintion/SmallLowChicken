@@ -40,8 +40,8 @@ public class ProdeceOne {
 
         /**
          * 发送消息
-         * var1:交换机名称
-         * var2:队列名称
+         * var1:交换机名称 空的话就为默认的交换机
+         * var2:队列名称 或者匹配的队列
          * var3: AMQP.BasicProperties 提供了一个构造器，可以通过builder() 来设置一些属性；
          * AMQP.BasicProperties.Builder properties = new AMQP.BasicProperties().builder();
          *          * properties.deliveryMode(2);  // 设置消息是否持久化，1： 非持久化 2：持久化
@@ -49,7 +49,6 @@ public class ProdeceOne {
          */
         for (int i = 0; i < 100; i++) {
             channel.basicPublish("", QUEUE_NAME, null, ("你是狗吗? " + i).getBytes());
-//            Thread.sleep(i * 10);
         }
 
         channel.close();
