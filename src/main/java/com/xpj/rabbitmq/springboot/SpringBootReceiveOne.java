@@ -17,7 +17,6 @@ public class SpringBootReceiveOne {
     @Autowired
     private AmqpTemplate rabbitMqTemplate;
 
-
     @RabbitHandler
     void receive(String hello) throws InterruptedException {
         TimeUnit.MILLISECONDS.sleep(20);

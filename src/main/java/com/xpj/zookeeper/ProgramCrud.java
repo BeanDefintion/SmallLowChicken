@@ -12,7 +12,6 @@ public class ProgramCrud implements BaseCrud {
 
     private volatile ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
 
-
     @Override
     public void init() {
 

@@ -1,6 +1,5 @@
 package com.xpj.redis;
 
-
 import com.mysql.cj.util.StringUtils;
 import com.typesafe.config.ConfigFactory;
 import org.slf4j.Logger;
@@ -64,7 +63,6 @@ public class RedisUtil implements Serializable {
         initPool();
     }
 
-
     /**
      * 初始化JedisPool(连接池的性能更优秀),所以连接池用1个，而连接不能只用1个，单例模式也不能乱用
      *
@@ -88,7 +86,6 @@ public class RedisUtil implements Serializable {
         return jedisPool;
     }
 
-
     /**
      * 获得Jedis连接(这里如果用双重隔离锁的话?)
      *
@@ -108,7 +105,6 @@ public class RedisUtil implements Serializable {
         return jedis;
     }
 
-
     /**
      * 回收Jedis连接
      *
@@ -120,7 +116,6 @@ public class RedisUtil implements Serializable {
             jedis.close();
         }
     }
-
 
     /**
      * 存储String-String的数据
@@ -183,7 +178,6 @@ public class RedisUtil implements Serializable {
         }
     }
 
-
     /**
      * 判断redis中是否存在某个key
      *
@@ -195,7 +189,6 @@ public class RedisUtil implements Serializable {
         Jedis jedis = getJedis();
         return jedis.exists(key);
     }
-
 
     /**
      * Set集合获取所有keys
@@ -219,7 +212,6 @@ public class RedisUtil implements Serializable {
         return null;
     }
 
-
     /**
      * 保存byte类型数据
      * 有默认过期时间的
@@ -241,7 +233,6 @@ public class RedisUtil implements Serializable {
             }
         }
     }
-
 
     /**
      * 获取byte类型数据
@@ -265,7 +256,6 @@ public class RedisUtil implements Serializable {
 
         return bytes;
     }
-
 
     /**
      * 存储obj实例
@@ -330,7 +320,6 @@ public class RedisUtil implements Serializable {
             recycleJedis(jedis);
         }
     }
-
 
     /**
      * 删除某个key的值
@@ -457,7 +446,6 @@ public class RedisUtil implements Serializable {
 
     }
 
-
     public static void printRedis(RedisTable redisTable) {
         System.out.println("redisType的值是: " + redisTable.getRedisType()
                 + " ValueString的值是: " + redisTable.getValue_string()
@@ -467,7 +455,6 @@ public class RedisUtil implements Serializable {
                 + " ValueObject的值是: " + redisTable.getValue_obj()
         );
     }
-
 
     /**
      * 获取byte[]类型Key
@@ -484,7 +471,6 @@ public class RedisUtil implements Serializable {
         }
     }
 
-
     /**
      * Object转换byte[]类型
      *
@@ -495,7 +481,6 @@ public class RedisUtil implements Serializable {
     public static byte[] toBytes(Object object) {
         return serialize(object);
     }
-
 
     /**
      * byte[]型转换Object
@@ -509,7 +494,6 @@ public class RedisUtil implements Serializable {
         return unserialize(bytes);
 
     }
-
 
     /**
      * object序列化成byte[]
@@ -556,7 +540,6 @@ public class RedisUtil implements Serializable {
         return null;
     }
 
-
     public static void main(String[] args) throws CloneNotSupportedException {
         sadd("xpj", "SHuaiB", "SBBB", "ssssss");
         setString("1", "2");
@@ -570,6 +553,5 @@ public class RedisUtil implements Serializable {
 //        RedisUtil.getValueOfObject("key");
 //        getValueOfObject("2", "obj");
     }
-
 
 }

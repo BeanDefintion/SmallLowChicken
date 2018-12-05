@@ -1,6 +1,5 @@
 package com.xpj.rabbitmq.config;
 
-import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.typesafe.config.ConfigFactory;

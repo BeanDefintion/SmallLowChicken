@@ -24,7 +24,6 @@ public class SpringBootRabbitMqTests {
         helloSender.send();
     }
 
-
     @Test
     public void multiHello() throws InterruptedException {
         for (int i = 0; i < 20; i++) {

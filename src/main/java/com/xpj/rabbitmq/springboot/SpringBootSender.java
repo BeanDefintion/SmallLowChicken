@@ -17,13 +17,11 @@ public class SpringBootSender {
         rabbitmqTemplate.convertAndSend("hello", context);
     }
 
-
     public void send1() {
         String context = "hi, i am message 11111-----1.2";
         System.out.println("Sender : " + context);
         rabbitmqTemplate.convertAndSend("top_exchange_springboot", "1.2", context);
     }
-
 
     public void send2() {
         String context = "hi, i am messages 22222222222------3.2";
