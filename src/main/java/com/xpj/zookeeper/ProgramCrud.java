@@ -1,5 +1,6 @@
 package com.xpj.zookeeper;
 
+import com.xpj.zookeeper.crud.BaseCrud;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

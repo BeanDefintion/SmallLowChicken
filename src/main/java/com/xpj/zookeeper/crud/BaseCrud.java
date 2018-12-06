@@ -1,4 +1,4 @@
-package com.xpj.zookeeper;
+package com.xpj.zookeeper.crud;
 
 import java.util.Map;
 
